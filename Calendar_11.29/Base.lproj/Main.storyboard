@@ -45,19 +45,19 @@
                                     <rect key="frame" x="0.0" y="0.0" width="80" height="79"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zKp-ml-Z0n">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zKp-ml-Z0n">
                                             <rect key="frame" x="8" y="8" width="61" height="63"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iyc-sW-BRQ">
-                                            <rect key="frame" x="17" y="24" width="46" height="30"/>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mPP-Dm-uY2">
+                                            <rect key="frame" x="15" y="24" width="46" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" title="Button"/>
                                             <connections>
-                                                <action selector="ButtonTest:" destination="C80-d4-ejM" eventType="touchUpInside" id="SIb-w7-9HI"/>
+                                                <action selector="colletionViewButtons:" destination="C80-d4-ejM" eventType="touchUpInside" id="gVo-gs-VAl"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -65,6 +65,7 @@
                                 <size key="customSize" width="80" height="79"/>
                                 <connections>
                                     <outlet property="CollectionViewTest" destination="zKp-ml-Z0n" id="Ek5-4i-26J"/>
+                                    <outlet property="collectionViewButtons" destination="mPP-Dm-uY2" id="rFR-jL-yGJ"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -74,10 +75,59 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" id="bDm-jD-TMa"/>
+                    <connections>
+                        <segue destination="vVI-3J-bhH" kind="show" identifier="SceneConnection" id="TSL-4e-7eJ"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fsB-O0-09k" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-10.144927536231885" y="18.75"/>
+        </scene>
+        <!--Second View Controller-->
+        <scene sceneID="hEO-JC-cde">
+            <objects>
+                <tableViewController storyboardIdentifier="SecView" id="vVI-3J-bhH" customClass="SecondViewController" customModule="Calendar_11_29" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="pbd-iO-cBP">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <button key="tableFooterView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="XAn-FC-Sfr">
+                            <rect key="frame" x="0.0" y="99.5" width="414" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Add"/>
+                            <connections>
+                                <action selector="addMemo:" destination="vVI-3J-bhH" eventType="touchUpInside" id="VQR-kp-iWJ"/>
+                            </connections>
+                        </button>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" textLabel="axw-u3-Mo4" style="IBUITableViewCellStyleDefault" id="nQY-La-zgT">
+                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nQY-La-zgT" id="YxQ-Dn-e8P">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="axw-u3-Mo4">
+                                            <rect key="frame" x="20" y="0.0" width="374" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="vVI-3J-bhH" id="B1g-MY-UGi"/>
+                            <outlet property="delegate" destination="vVI-3J-bhH" id="csi-jb-Z1s"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="BTO-Cy-1lb"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gIH-B7-XLd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="928" y="-247"/>
         </scene>
     </scenes>
 </document>

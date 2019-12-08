@@ -23,7 +23,7 @@ class Dates {
 
 extension Date{
     //let StartDay = calendar.component(.month, from: rightNow)
-    func getCurrentDate() -> Int{
+    func getCurrentDate() -> Int {
         let calendar = Calendar.current
         let rightNow = Date()
         
@@ -59,32 +59,33 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         
         //해당주의 데이터를 뿌린다.
-        let endOfMonth = Calendar.current.component(.day, from: Date().endOfMonth())
+        /*let endOfMonth = Calendar.current.component(.day, from: Date().endOfMonth())
         let c: Int = endOfMonth/7
         for index in 1...(c+1){
-        setCollectionItem(week: index)
-        }
+            setCollectionItem(week: index)
+         
+         
+        }*/
+        
+        
     }
 
     var collectionItems = [String]()
     var collectionItems2 = [String]()
     var dic1: Dictionary = [String:Int]()
-    
+    /*
     func setCollectionItem(week: Int){
         
         var result = Dates.add(numberOne: 4, numberTwo: 2)
         let rightNow = Date() //Date 객체 받음
         
         let i = Date().getCurrentDate() //현재날짜 받아오기
-        print(i)
         let dayOfDate = Date().getCurretDayOfDate()
-        print(dayOfDate)
         
         //날짜 시작일에 해당하는 날짜 객체를 받아와야 한다.
         //let startDate = Date(from: <#T##Decoder#>)
         
         let startOfMonth = Calendar.current.component(.day, from: Date().startOfMonth())//그달의 시작일 정수로 받아오기.
-        print(startOfMonth)
         let endOfMonth = Calendar.current.component(.day, from: Date().endOfMonth())
         print(endOfMonth)
         
@@ -99,23 +100,13 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
         let dayAfter3 = Calendar.current.component(.day, from: dayAfter!)//3일 뒤의 날짜 데이터로 받아오기.
         
         let test = Calendar.current.date(byAdding: .day, value: -10, to: Date().startOfMonth())
-        print(test)
+        //print(test)
         
         //이번주 값들 저장
         
         let sevenDayAfter = Calendar.current.date(byAdding:.day, value: (week-1)*7 , to : Date().startOfMonth())
-        
-        
-        //let onDayAfterDay = ondayAfter.getCurrentDate()
-        
-        print(dayAfter3)
-        
-        print("djkfdfjeoifjeoifj")
-        
-        
+
         var dic1: Dictionary <Int, Int> = [1:0,2:0,3:0,4:0,5:0,6:0,7:0]
-        //1,2,3,4,5,6,7
-        
         var bufferOfDay = Calendar.current.component(.weekday,from: sevenDayAfter!) // 요일값 정수
         //var bufferOfDay: Int = 0 // 해당 날짜의 요일값을 받아오면 딕셔너리에 저장하는 조건
         var bufferDate = Calendar.current.component(.day, from: sevenDayAfter!) // 날짜값 정수      var day = 0;
@@ -150,19 +141,12 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
             default:
                 print("end")
             }
-           
-            
             if(keyPoint != 0){
   
                 let distance = keyPoint
-                print("print index")
-                print(keyPoint)
                 let c = Calendar.current.date(byAdding: .day, value: distance ,to : sevenDayAfter!)// 다음 날짜 객체 받아오기
                 bufferDate = Calendar.current.component(.day, from: c!) // 날짜 받기
                 bufferOfDay = Calendar.current.component(.weekday,from: c!) //요일 받기
-                print("날짜 데이터")
-                print(bufferDate)
-
                 keyPoint += 1
             }else {
                 keyPoint += 1;
@@ -174,10 +158,10 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
             //print(index)
         }
     
-        
+        /*
         for (key,value) in dic1{
             print("\(key):\(value)") // 1:zedd 2:swift 3:iOS 4:fun 5:Hello
-        }
+        }*/
         
         
         //print(day) // 일요일을 기준으로 1부터 저장된 딕셔너리에서, 요일값을 기준으로 정렬된 배열에 넣기.
@@ -186,9 +170,9 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
             collectionItems.append(String())
             collectionItems[count+((week-1)*7)] = String(dic1[count+1]!)
             result += 1
-        }
-    }
-        
+        }*/
+    
+
         ///////////////////////
         
     
@@ -216,25 +200,55 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
                 return 1
         }
         override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-            return collectionItems.count
+            return 42
 
     }
         override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DateCell", for: indexPath) as! CollectionViewCell
-            //  Configure the Cell
-            cell.collectionViewTest.text = collectionItems[indexPath.row]
-            cell.collectionViewButton.setTitle(collectionItems[indexPath.row],for:.normal)
-            cell.collectionViewButton.backgroundColor = .red
-            cell.collectionViewButton.frame = CGRect(x: 0, y: 0, width: 40, height: 40) // X, Y, width, height
             
-            //cell.CollectionViewButton(UIButton).setTitle = collectionItems[indexPath.row]
+            let startWeekday = Calendar.current.component(.weekday, from: Date().startOfMonth())
+            print(startWeekday)
+            let firstDay = Calendar.current.date(byAdding: .day , value: 1-startWeekday, to: Date().startOfMonth())
+            let begin = Calendar.current.date(byAdding: .day, value: indexPath.row, to: firstDay!)
+            let bbb = Calendar.current.component(.day, from: begin!)
+            cell.collectionViewButtons.setTitle(String(bbb), for: .normal)
+            
+            // collectionItems[indexPath.row] = String(Calendar.current.component(.day, from: begin!))
+            
+            
+            
+            
+            
+            
+            
+            //cell.collectionViewButtons.setTitle(collectionItems[indexPath.row],for:.normal)
+                cell.collectionViewButtons.backgroundColor = .systemGray
+                cell.collectionViewButtons.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+            cell.collectionViewButtons.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
+            
             return cell
 
         }
 
 
         //********** 추가되는 부분 ***************
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            // self.performSegue(withIdentifier: "SceneConnection", sender: nil)
+            if segue.identifier == "SceneConnection" {
+                let button = sender as! UIButton
 
+                if let destinationVC = segue.destination as? SecondViewController {
+                    destinationVC.destinationDate = button.title(for: .normal)!
+                }
+            }
+        }
+
+    @objc func buttonClicked(sender: UIButton) {
+        performSegue(withIdentifier: "SceneConnection", sender: sender)
+            // let value = UIButton.title
+    }
 }
+
+
 
 

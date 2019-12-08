@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		79234B5D239934E80025BCCF /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79234B5C239934E80025BCCF /* CustomButton.swift */; };
+		79234B5F2399E7520025BCCF /* SchueduleTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79234B5E2399E7520025BCCF /* SchueduleTableViewController.swift */; };
 		79F82DF2239117C900153839 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F82DF1239117C900153839 /* AppDelegate.swift */; };
 		79F82DF4239117C900153839 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F82DF3239117C900153839 /* SceneDelegate.swift */; };
 		79F82DF6239117C900153839 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F82DF5239117C900153839 /* ViewController.swift */; };
@@ -20,6 +21,7 @@
 
 /* Begin PBXFileReference section */
 		79234B5C239934E80025BCCF /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		79234B5E2399E7520025BCCF /* SchueduleTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchueduleTableViewController.swift; sourceTree = "<group>"; };
 		79F82DEE239117C900153839 /* Calendar_11.29.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Calendar_11.29.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		79F82DF1239117C900153839 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		79F82DF3239117C900153839 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 				79F82DF3239117C900153839 /* SceneDelegate.swift */,
 				79F82DF5239117C900153839 /* ViewController.swift */,
 				79F82DF7239117C900153839 /* Main.storyboard */,
+				79234B5E2399E7520025BCCF /* SchueduleTableViewController.swift */,
 				79F82E08239119D000153839 /* CollectionViewCell.swift */,
 				79234B5C239934E80025BCCF /* CustomButton.swift */,
 				79F82DFD239117CC00153839 /* Assets.xcassets */,
@@ -151,6 +154,7 @@
 				79F82DFC239117C900153839 /* Calendar_11_29.xcdatamodeld in Sources */,
 				79234B5D239934E80025BCCF /* CustomButton.swift in Sources */,
 				79F82DF6239117C900153839 /* ViewController.swift in Sources */,
+				79234B5F2399E7520025BCCF /* SchueduleTableViewController.swift in Sources */,
 				79F82DF2239117C900153839 /* AppDelegate.swift in Sources */,
 				79F82DF4239117C900153839 /* SceneDelegate.swift in Sources */,
 			);
