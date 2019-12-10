@@ -60,11 +60,19 @@
                                                 <action selector="colletionViewButtons:" destination="C80-d4-ejM" eventType="touchUpInside" id="gVo-gs-VAl"/>
                                             </connections>
                                         </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MXV-vm-LOv">
+                                            <rect key="frame" x="19" y="29" width="42" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                 </collectionViewCellContentView>
                                 <size key="customSize" width="80" height="79"/>
                                 <connections>
                                     <outlet property="CollectionViewTest" destination="zKp-ml-Z0n" id="Ek5-4i-26J"/>
+                                    <outlet property="DateLabel" destination="MXV-vm-LOv" id="UC8-Ab-n87"/>
                                     <outlet property="collectionViewButtons" destination="mPP-Dm-uY2" id="rFR-jL-yGJ"/>
                                 </connections>
                             </collectionViewCell>

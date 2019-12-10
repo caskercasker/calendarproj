@@ -17,7 +17,7 @@ class SecondViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print(destinationDate)
-        title = "일정" // 날짜에 따른 뷰를 뿌린다.
+        title = destinationDate // 날짜에 따른 뷰를 뿌린다.
 
         // tableView.register(UITableViewCell.self , forCellReuseIdentifier: "Cell")
         navigationItem.rightBarButtonItem = editButtonItem
@@ -26,7 +26,7 @@ class SecondViewController: UITableViewController {
 
 
     @IBAction func addMemo(_: UIButton){
-        let alert = UIAlertController(title: "새로운 일정", message: "일정만 추가", preferredStyle: .alert)
+        let alert = UIAlertController(title: "새로운 일정", message: "일정만 추가", preferredStyle: .alert)// 알람스타일의 레이아웃
 
         let saveAction = UIAlertAction(title: "저장", style: .default) {
             [unowned self] _ in
@@ -54,6 +54,8 @@ class SecondViewController: UITableViewController {
             //var indexPath2 = NSIndexPath(forRow: 1, inSection: 2)
             //self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
              // fixme
+            
+            
         }
 
         let cancelAction = UIAlertAction(title: "취소", style: .cancel)

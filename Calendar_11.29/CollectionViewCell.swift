@@ -38,6 +38,8 @@ class CollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var collectionViewTest: UILabel!
     
+    @IBOutlet weak var DateLabel: UILabel!
+    
     var selectedIndex = 0 
     
     
