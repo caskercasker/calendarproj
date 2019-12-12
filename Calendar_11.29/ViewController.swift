@@ -48,7 +48,8 @@ extension Date{ //Date 라는 객체는 내용이지 기능을 넣는 곳은 캘
 
 
 class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-
+    var cellcount = 84;
+        var fetchingMore = false
     override func viewDidLoad() {
         super.viewDidLoad()
         let month = Calendar.current.component(.month, from: Date())
@@ -67,109 +68,7 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
     var collectionItems = [String]()
     var collectionItems2 = [String]()
     var dic1: Dictionary = [String:Int]()
-    /*
-    func setCollectionItem(week: Int){
-        
-        var result = Dates.add(numberOne: 4, numberTwo: 2)
-        let rightNow = Date() //Date 객체 받음
-        
-        let i = Date().getCurrentDate() //현재날짜 받아오기
-        let dayOfDate = Date().getCurretDayOfDate()
-        
-        //날짜 시작일에 해당하는 날짜 객체를 받아와야 한다.
-        //let startDate = Date(from: <#T##Decoder#>)
-        
-        let startOfMonth = Calendar.current.component(.day, from: Date().startOfMonth())//그달의 시작일 정수로 받아오기.
-        let endOfMonth = Calendar.current.component(.day, from: Date().endOfMonth())
-        print(endOfMonth)
-        
-        let dateOfStartMonth = Calendar.current.component(.weekday, from: Date().startOfMonth())// 그달의 시작 요일
-        print(dateOfStartMonth)
-        let dateOfEndOfMonth = Calendar.current.component(.weekday, from: Date().endOfMonth())
-        print(dateOfEndOfMonth)
-        
-        
-        
-        let dayAfter = Calendar.current.date(byAdding: .day, value: -10, to: rightNow) //3일 뒤의 날짜
-        let dayAfter3 = Calendar.current.component(.day, from: dayAfter!)//3일 뒤의 날짜 데이터로 받아오기.
-        
-        let test = Calendar.current.date(byAdding: .day, value: -10, to: Date().startOfMonth())
-        //print(test)
-        
-        //이번주 값들 저장
-        
-        let sevenDayAfter = Calendar.current.date(byAdding:.day, value: (week-1)*7 , to : Date().startOfMonth())
 
-        var dic1: Dictionary <Int, Int> = [1:0,2:0,3:0,4:0,5:0,6:0,7:0]
-        var bufferOfDay = Calendar.current.component(.weekday,from: sevenDayAfter!) // 요일값 정수
-        //var bufferOfDay: Int = 0 // 해당 날짜의 요일값을 받아오면 딕셔너리에 저장하는 조건
-        var bufferDate = Calendar.current.component(.day, from: sevenDayAfter!) // 날짜값 정수      var day = 0;
-        //let b = bufferDate // 뿌리기 기준 날짜
-        var keyPoint = 0-bufferOfDay+1 //0일수가 없음
-
-        for _ in 1...8{
-        //날짜를 넘기고, 요일을 넘기면
-            switch (bufferOfDay){
-            case 1:
-                dic1.updateValue(bufferDate, forKey: 1)
-                //print(day)
-                //break
-            case 2:
-                dic1.updateValue(bufferDate, forKey: 2)
-                //print(day)
-                //break
-            case 3:
-                dic1.updateValue(bufferDate, forKey: 3)
-                //break
-            case 4:
-                dic1.updateValue(bufferDate, forKey: 4)
-                //break
-            case 5:
-                dic1.updateValue(bufferDate, forKey: 5)
-                //break
-            case 6:
-                dic1.updateValue(bufferDate, forKey: 6)
-                //break
-            case 7:
-                dic1.updateValue(bufferDate, forKey: 7)
-            default:
-                print("end")
-            }
-            if(keyPoint != 0){
-  
-                let distance = keyPoint
-                let c = Calendar.current.date(byAdding: .day, value: distance ,to : sevenDayAfter!)// 다음 날짜 객체 받아오기
-                bufferDate = Calendar.current.component(.day, from: c!) // 날짜 받기
-                bufferOfDay = Calendar.current.component(.weekday,from: c!) //요일 받기
-                keyPoint += 1
-            }else {
-                keyPoint += 1;
-                //print("0")
-            }
-            //buf += 1;
-            //bufferDate = Calendar.current.date(byAdding: .day, value: b ,to : Date().startOfMonth())
-            
-            //print(index)
-        }
-    
-        /*
-        for (key,value) in dic1{
-            print("\(key):\(value)") // 1:zedd 2:swift 3:iOS 4:fun 5:Hello
-        }*/
-        
-        
-        //print(day) // 일요일을 기준으로 1부터 저장된 딕셔너리에서, 요일값을 기준으로 정렬된 배열에 넣기.
-        
-        for count in 0...6{
-            collectionItems.append(String())
-            collectionItems[count+((week-1)*7)] = String(dic1[count+1]!)
-            result += 1
-        }*/
-    
-
-        ///////////////////////
-        
-    
     //********** 추가되는 부분 ***************
 
     //콜렉션 뷰에 셀을 행에다가 7개씩 뿌린다.
@@ -194,13 +93,15 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
         // MARK: - CollectionView DataSource
 
         override func numberOfSections(in collectionView: UICollectionView) -> Int {
-                return 1
+                return 2
         }
         override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-            return 150
+            return 42 //값 고정
 
     }
         override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+            
+            
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DateCell", for: indexPath) as! CollectionViewCell
             
             let date = Date()
@@ -247,7 +148,7 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
             cell.collectionViewButtons.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
             cell.DateLabel.text = String(labelText)// 레이블 출력
             var place = NSIndexPath(item: cur, section: 0)
-            print(cur)
+            //print(cur)
             let indexPath = IndexPath(row: cur-1, section: 0)//indexPath 는 0부터 시작
             cell.contentView.backgroundColor = .red
             collectionView.cellForItem(at: indexPath)?.contentView.backgroundColor = .blue
@@ -269,8 +170,50 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 1.0
     }
-
-
+    //MARK: SCRoll controll
+    override func scrollViewDidScroll(_ scrollView: UIScrollView){
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight  = scrollView.contentSize.height
+            //print("offsetY: \(offsetY) | contentHeight: \(contentHeight)")
+        if offsetY > contentHeight - scrollView.frame.height{
+            
+            if !fetchingMore   {
+                beginBatchFetch()
+            }
+            }
+            //print("beginBatchFetch!!")
+        }
+    //MARK: mark sentence
+    func beginBatchFetch(){
+        fetchingMore = true
+        print("beginBatchFetch!!")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+            //self.cellcount = self.cellcount + 120
+            let indexpath = IndexPath(row: self.cellcount, section: 1)
+            self.collectionView.reloadSections(NSIndexSet(index: indexpath.section) as IndexSet)
+            self.collectionView.reloadData()
+            
+        })
+        //DispatchQueue.main.asyncAfter(
+        //추가적으로 셀을 뿌리는 작업 해야 한다? 혹은 데이터 를 추가해야 한다.
+        
+    }
+        
+//        if offsetY > contentHeight - scrollView.frame.height {
+//            if !fetchingMore{
+//                beginBatchFetch()
+//            }
+//                //print("beginBatchFetch!")
+//        }
+//    }
+//    func beginBatchFetch() {
+//            fetchingMore = true
+//        print("beginBatchFetch!")
+//
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0 , execute:  {})
+//
+//    }
         //********** 추가되는 부분 ***************
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
             // self.performSegue(withIdentifier: "SceneConnection", sender: nil)
@@ -291,4 +234,6 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
 
 
 
+
+            //MARK : -주별로 뿌리는 소스
 
