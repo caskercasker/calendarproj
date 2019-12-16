@@ -47,6 +47,9 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
         super.viewDidLoad()
         let month = Calendar.current.component(.month, from: rightNow)
         title = String(month)
+        
+        //self.collectionView.scrollTo
+        //self.collectionView.scrollToItem(at: IndexPath(item: 10 ,section:12), at: .right, animated: false)
         // Do any additional setup after loading the view.
         //해당주의 데이터를 뿌린다.
         /*let endOfMonth = Calendar.current.component(.day, from: Date().endOfMonth())
@@ -56,6 +59,12 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
         }*/
     }
 
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.collectionView?.scrollToItem(at: IndexPath(row:1, section:12), at: UICollectionView.ScrollPosition.top, animated: true)
+        //self.collectionView?.scrollToItem(at: IndexPath(item: 365 ,section:12), at: .top, animated: true)
+    }
     // MARK: -  Fuction for a week
 
     var collectionItems = [String]()
@@ -90,38 +99,60 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
             print("into section1")
             //let section = collectionView.dequ
             //nextmonth = Calendar.current.
-            return 2
+            return 24
         }
         override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
             
+            let buf = Calendar.current.date(byAdding:.month, value: -12, to: Date())
+            
             if section == 0{
-            let endOfMonth = Calendar.current.component(.day, from: Date().endOfMonth())
+                
+                //let buf = Calendar.current.date(byAdding:.month, value: -12, to: Date())
+                let endOfMonth = Calendar.current.component(.day, from: buf!.endOfMonth())
+                let st = Calendar.current.component(.weekday, from: buf!.startOfMonth())
+            print("2323")
+            print(st)
             print(endOfMonth)
-            return endOfMonth
+            return endOfMonth+st-1
                 
             }else {
-            let endOfMonth1 = Calendar.current.component(.day, from: Date().endOfMonth())
+            
+            let endOfMonth1 = Calendar.current.component(.day, from: buf!.endOfMonth())
             print(endOfMonth1)
-            let endOfMonthDate = Calendar.current.date(byAdding: .day, value: endOfMonth1, to: Date())
-            let endOfMonth = Calendar.current.component(.day, from: endOfMonthDate!.endOfMonth())
+            //let endOfMonthDate = Calendar.current.date(byAdding: .day, value: endOfMonth1, to: Date())
+            let endOfMonthDate1 = Calendar.current.date(byAdding: .month, value: section, to: buf!)
+            let endOfMonth = Calendar.current.component(.day, from: endOfMonthDate1!.endOfMonth())
+                let st = Calendar.current.component(.weekday, from: endOfMonthDate1!.startOfMonth())
             print(endOfMonth)
-            return endOfMonth
+            return endOfMonth+st-1
             //collectionView 와 section
             }
         }
         override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             
-            if indexPath.section == 0 {
-            print(indexPath.section)
-            let rightNow = Date()
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DateCell", for: indexPath) as! CollectionViewCell
-            print("into cell")
+            var rightNow = Calendar.current.date(byAdding:.month, value: -12, to: Date())
             
-            let startWeekday = Calendar.current.component(.weekday, from: rightNow.startOfMonth())//첫날의 요일 값 숫자값
-            let firstDay = Calendar.current.date(byAdding: .day , value: 1-startWeekday, to: rightNow.startOfMonth()) // 달표시의 첫날
+            
+            if indexPath.section == 0 {
+            //print(indexPath.section)
+            //let rightNow = Date()
+        
+            
+                let startWeekday = Calendar.current.component(.weekday, from: rightNow!.startOfMonth())//첫날의 요일 값 숫자값
+            let firstDay = Calendar.current.date(byAdding: .day , value: 1-startWeekday, to: rightNow!.startOfMonth()) // 달표시의 첫날
             let begin = Calendar.current.date(byAdding: .day, value: indexPath.row, to: firstDay!) //indexpath에 따라서 날짜가 진행되면서 뿌린다.
-            let labelText = Calendar.current.component(.day, from: begin!) //UILable에 뿌리는 날짜값, 계산과는 상관없는 일자만 반복
-            let cur = Calendar.current.component(.day, from: rightNow) //현재날짜값 데이터
+            
+                let monthLabel = Calendar.current.component(.month, from: begin!)
+                let monthLabelDate = Calendar.current.component(.month, from: rightNow!)
+            
+            if(monthLabel == monthLabelDate){
+            var labelText = Calendar.current.component(.day, from: begin!) //UILable에 뿌리는 날짜값, 계산과는 상관없는 일자만 반복
+                cell.DateLabel.text = String(labelText)
+            }else{
+                cell.DateLabel.text = " "
+                }
+            let cur = Calendar.current.component(.day, from: rightNow!) //현재날짜값 데이터
             
             let dateFormatter = DateFormatter() //
             dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
@@ -129,7 +160,8 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
             //dateFormatter.locale = Locale.init(identifier: "ko_Ko")
             //var dateString2 = dateFormatter.string(from: Date()) //현재 시간을 표시
             let dateString = dateFormatter.string(from: begin!) //포맷에 따른 date 객체
-            let curMonth = Calendar.current.startOfDay(for: rightNow)
+            let curMonth = Calendar.current.startOfDay(for: Date())
+            
             
             
             cell.collectionViewButtons.setTitle(String(dateString), for: .normal) //
@@ -140,7 +172,7 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
                 //Frame 에는 CG Rect 만 대입 가능.
             
             cell.collectionViewButtons.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
-            cell.DateLabel.text = String(labelText)// 레이블 출력
+            //cell.DateLabel.text = String(labelText)// 레이블 출력
             let indexPath = IndexPath(row: cur-1, section: 0)//indexPath 는 0부터 시작
             cell.contentView.backgroundColor = .systemPink
             collectionView.cellForItem(at: indexPath)?.contentView.backgroundColor = .blue
@@ -150,37 +182,46 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
             //print("end cell")
             //print("indexPath value ")
             return cell
-            } else {
-                //print(indexPath.section)
                 
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DateCell", for: indexPath) as! CollectionViewCell
-            //print("into cell")
-            //collectionView, indexPath...
-            
+                
+                
+                
+            } else {
+      
             let endOfMonth1 = Calendar.current.component(.day, from: Date().endOfMonth()) //전달 달의 숫자를 가져옴
-            rightNow = Calendar.current.date(byAdding: .day, value: endOfMonth1, to: Date())!
+            let rightNow1 = Calendar.current.date(byAdding: .month, value: indexPath.section, to: rightNow!)
 //                       let endOfMonth = Calendar.current.component(.day, from: endOfMonthDate!.endOfMonth())
 //                       print(endOfMonth)
 //                       return endOfMonth
 //                rightNow =
 //
-            let nextMonth = Calendar.current.component(.month, from:rightNow)
+            let nextMonth = Calendar.current.component(.month, from:rightNow1!)
             //print(nextMonth)
             //let rightNow = Date()
             //print("fdfd")
             //print(rightNow)
             
             
-            let startWeekday = Calendar.current.component(.weekday, from: rightNow.startOfMonth())//첫날의 요일 값 숫자값
+                let startWeekday = Calendar.current.component(.weekday, from: rightNow1!.startOfMonth())//첫날의 요일 값 숫자값
             print(startWeekday)
-            let firstDay = Calendar.current.date(byAdding: .day , value: 1-startWeekday, to: rightNow.startOfMonth()) // 달표시의 첫날
+                let firstDay = Calendar.current.date(byAdding: .day , value: 1-startWeekday, to: rightNow1!.startOfMonth()) // 달표시의 첫날
             let begin = Calendar.current.date(byAdding: .day, value: indexPath.row, to: firstDay!) //indexpath에 따라서 날짜가 진행되면서 뿌린다.
-            let labelText = Calendar.current.component(.day, from: begin!) //UILable에 뿌리는 날짜값, 계산과는 상관없는 일자만 반복
+            
+                    let monthLabel = Calendar.current.component(.month, from: begin!)
+                let monthLabelDate = Calendar.current.component(.month, from: rightNow1!)
+                
+            if(monthLabel == monthLabelDate){
+                var labelText = Calendar.current.component(.day, from: begin!) //UILable에 뿌리는 날짜값, 계산과는 상관없는 일자만 반복
+                    cell.DateLabel.text = String(labelText)
+            }else{
+                cell.DateLabel.text = " "
+            }
+                //let labelText = Calendar.current.component(.day, from: begin!) //UILable에 뿌리는 날짜값, 계산과는 상관없는 일자만 반복
             
             
             
             
-            let cur = Calendar.current.component(.day, from: rightNow) //현재날짜값 데이터
+            let cur = Calendar.current.component(.day, from: Date()) //현재날짜값 데이터
             //let date = Date()
 
             let dateFormatter = DateFormatter() //
@@ -192,7 +233,7 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
             let dateString = dateFormatter.string(from: begin!) //포맷에 따른 date 객체의
 
             
-            let curMonth = Calendar.current.startOfDay(for: rightNow)
+                let curMonth = Calendar.current.startOfDay(for: rightNow!)
             //print(curMonth)
             
             //print(indexPath.row)
@@ -215,7 +256,7 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
                 //Frame 에는 CG Rect 만 대입 가능.
             
             cell.collectionViewButtons.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
-            cell.DateLabel.text = String(labelText)// 레이블 출력
+            //cell.DateLabel.text = String(labelText)// 레이블 출력
             let indexPath = IndexPath(row: cur-1, section: 0)//indexPath 는 0부터 시작
             cell.contentView.backgroundColor = .systemPink
             collectionView.cellForItem(at: indexPath)?.contentView.backgroundColor = .blue
