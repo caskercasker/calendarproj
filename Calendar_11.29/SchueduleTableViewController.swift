@@ -26,45 +26,42 @@ class SecondViewController: UITableViewController {
 
 
     @IBAction func addMemo(_: UIButton){
-//        let alert = UIAlertController(title: "새로운 일정", message: "일정만 추가", preferredStyle: .alert)// 알람스타일의 레이아웃
-//        let saveAction = UIAlertAction(title: "저장", style: .default) {
-//            [unowned self] _ in
-//
-//            guard let textField = alert.textFields?.first,
-//                let doToSave = textField.text else {
-//                return
-//            }
-////            guard let appDelegate =
-////                UIApplication.shared.delegate as? AppDelegate else {
-////                return
-////            }
-//            self.save(name: doToSave)
-//           //  self.tableView.reloadData()
-//            let indexPath = IndexPath(row: self.memos.count-1, section: 0)
-//            self.tableView.insertRows(at: [indexPath], with: .right)
-//           // self.tableView.reloadSections(sections as IndexSet, with: .automatic)
-//            /*
-//            UIView.transition(with: .self(), duration: 1.0, options: .transitionCrossDissolve, animations: {self.myTableView.reloadData()}, completion: nil)*/
-//            //self.tableView.reloadRows(at: [indexPath], with: .right)
-//            //var indexPath = NSIndexPath(row: indexPath.row, section: self.memos.count)
-//            //var indexPath2 = NSIndexPath(forRow: 1, inSection: 2)
-//            //self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
-//        }
-//
-//        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
-//        alert.addTextField()
-//        alert.addAction(saveAction)
-//        alert.addAction(cancelAction)
-//
-//        present(alert, animated: true)
+        let alert = UIAlertController(title: "새로운 일정", message: "일정만 추가", preferredStyle: .alert)// 알람스타일의 레이아웃
+        let saveAction = UIAlertAction(title: "저장", style: .default) {
+            [unowned self] _ in
+
+            guard let textField = alert.textFields?.first,
+                let doToSave = textField.text else {
+                return
+            }
+            guard (UIApplication.shared.delegate as? AppDelegate) != nil else {
+                return
+            }
+            self.save(name: doToSave)
+            let indexPath = IndexPath(row: self.memos.count-1, section: 0)
+            self.tableView.insertRows(at: [indexPath], with: .right)
+        }
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+        
+        
+        
+        
+        alert.addTextField()
+        alert.addAction(saveAction)
+        alert.addAction(cancelAction)
+
+        present(alert, animated: true)
     }
+    
 
     // Override to support editing the table view.
     
     override func tableView(_: UITableView, canEditRowAt _: IndexPath) -> Bool {
         return true
     }
-
+    
+    
+//MARK: Table View (Edit =deletion)
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         assert(self.tableView == tableView)
         let managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -77,7 +74,7 @@ class SecondViewController: UITableViewController {
         
         if editingStyle == .delete {
             // 1
-            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            guard (UIApplication.shared.delegate as? AppDelegate) != nil else {
                 return
             }
             // let managedContext = appDelegate.persistentContainer.viewContext
@@ -93,7 +90,8 @@ class SecondViewController: UITableViewController {
             assert(false)
         }
     }
-
+    
+//MARK: VIEW Apperar
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
@@ -131,7 +129,8 @@ class SecondViewController: UITableViewController {
              print("Could not fetch. \(error), \(error.userInfo)")
          }*/
     }
-
+//MARK: SAVE FUNCTION
+    
     func save(name: String) {
         guard let appDelegate =
             UIApplication.shared.delegate as? AppDelegate else {
