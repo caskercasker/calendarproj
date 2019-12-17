@@ -128,6 +128,8 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
             //collectionView 와 section
             }
         }
+    
+    //MARK: - CELL Control 
         override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DateCell", for: indexPath) as! CollectionViewCell
