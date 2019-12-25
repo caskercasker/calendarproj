@@ -13,6 +13,7 @@ import UIKit
 class SecondViewController: UITableViewController {
     var memos: [NSManagedObject] = []
     var destinationDate: String = "" //버튼을 클릭시 넘어오는 Date객체의 String 형태
+    var targetDestinations = Date()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,33 +27,33 @@ class SecondViewController: UITableViewController {
 
 
     @IBAction func addMemo(_: UIButton){
-        let alert = UIAlertController(title: "새로운 일정", message: "일정만 추가", preferredStyle: .alert)// 알람스타일의 레이아웃
-        let saveAction = UIAlertAction(title: "저장", style: .default) {
-            [unowned self] _ in
-
-            guard let textField = alert.textFields?.first,
-                let doToSave = textField.text else {
-                return
-            }
-            guard (UIApplication.shared.delegate as? AppDelegate) != nil else {
-                return
-            }
-            self.save(name: doToSave)
-            let indexPath = IndexPath(row: self.memos.count-1, section: 0)
-            self.tableView.insertRows(at: [indexPath], with: .right)
-        }
-        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
-        
-        
-        
-        
-        alert.addTextField()
-        alert.addAction(saveAction)
-        alert.addAction(cancelAction)
-
-        present(alert, animated: true)
+//        let alert = UIAlertController(title: "새로운 일정", message: "일정만 추가", preferredStyle: .alert)// 알람스타일의 레이아웃
+//        let saveAction = UIAlertAction(title: "저장", style: .default) {
+//            [unowned self] _ in
+//
+//            guard let textField = alert.textFields?.first,
+//                let doToSave = textField.text else {
+//                return
+//            }
+//            guard (UIApplication.shared.delegate as? AppDelegate) != nil else {
+//                return
+//            }
+//            self.save(name: doToSave)
+//            let indexPath = IndexPath(row: self.memos.count-1, section: 0)
+//            self.tableView.insertRows(at: [indexPath], with: .right)
+//        }
+//        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+//        
+//        
+//        
+//        
+//        alert.addTextField()
+//        alert.addAction(saveAction)
+//        alert.addAction(cancelAction)
+//
+//        present(alert, animated: true)
+//    }
     }
-    
 
     // Override to support editing the table view.
     
@@ -99,25 +100,12 @@ class SecondViewController: UITableViewController {
         }
         let managedContext = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Memo")
-        // let predicate = NSPredicate(format: "date = %@", "content")
-        // fetchRequest.predicate = predicate
-
-        // NSFetchRequest *fetch = [NSFetchRequest fetchRequestWithEntityName:@"Anime"];
-        // [fetch setPredicate:[NSPredicate predicateWithFormat:@"ANY names.string == %@", searchString]];
-        // let results = managedObjectContext.executeFetchRequest(fetchRequest)
 
         fetchRequest.predicate = NSPredicate(format: "date = %@", destinationDate)
-        // fetchRequest.predicate = NSPredicate(format: "content = %@", "544")
-        // fetchRequest.predicate = NSPredicate(format: "date = %@", "12")
-        // fetchRequest.predicate = NSPredicate(format: "content = %@")
-        // fetchRequest.returnsObjectsAsFaults = false
+
         do {
             memos = try managedContext.fetch(fetchRequest)
             print("fefd")
-            // for data in result as! [NSManagedObject] {
-            // print(data.value(forKey: "date") as! String)
-            // memos = try managedContext.fetch(fetchRequest)
-
         } catch {
             print("Failed")
             assert(false)
